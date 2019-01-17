@@ -1,118 +1,123 @@
 <template>
-
-<div class="col-12 col-sm-7 col-md-8 col-xl-9 alice desktop overflow m_height">
-	<transition name="fade3" mode="out-in">
-		<div class="container custom-height" v-if="state == 'A'">
-			<div class="row">
-				<div class="col-12 padd def-shadow mar-top5">
-					<h3>
-						Нажмите на группу<br>чтобы добавить новый проект
-					</h3>
+	<transition name="fade2" appear>
+	<div class="col-12 col-sm-7 col-md-8 col-xl-9 alice desktop overflow m_height">
+		<transition name="fade3" mode="out-in">
+			<div class="container custom-height" v-if="state == 'A'">
+				<div class="row">
+					<div class="col-12 padd def-shadow mar-top5">
+						<h3>
+							Нажмите на группу<br>чтобы добавить новый проект
+						</h3>
+					</div>
 				</div>
 			</div>
-		</div>
-	</transition>
-	<transition name="fade4" mode="out-in">
-		<div class="container def-shadow mar-top" id="newPro" v-if="state == 'B'">
-			<div class="row">
-				<h3 class="col-7 col-md-5 mar-bottom mar-top2">Новый проект</h3>
-			</div>
-			<div class="row justify-content-center">
-				<input type="text" class="col-9 col-md-7" v-model="projectName"
-				placeholder="Название проекта" required autofocus>
-			</div>
-			<div class="row justify-content-center">
-				<input type="text" class="col-9 col-md-7 mar-top4 mar-bottom" v-model="projectDescrip"
-				required placeholder="Описание проекта">
-			</div>
-			<div class="row justify-content-center">
-				<button class="col-5 col-md-3 btn btn-primary "
-				@click="makeNewProject(projectName, projectDescrip)">
-					Добавить
-				</button>
-			</div>
-			<div class="row justify-content-center">
-				<button class="col-5 col-md-3 btn btn-primary col-3 mar-top4 mar-bottom" @click="state = 'A'">
-					Отмена
-				</button>
-			</div>
-		</div>
-	</transition>
-	<transition name="fade5" mode="out-in">
-		<div class="container def-shadow mar-top" v-if="state == 'C' && projData.selected">
-			<div class="row justify-content-center">
-				<div class="col-12 fontS3 def-text-shadow mar-top2">{{ projData.name }}</div>
-				<div class="col-12 fontS2">{{ projData.descrip }}</div>
-				<button class="col-4 col-md-3 btn btn-primary mar-top2" @click="state = 'D'">Изменить</button>
-				<button class="col-4 col-md-3 btn btn-primary mar-top2" @click="projectDone">Выполнено</button>
-			</div>
-			<div class="mar-top3"></div>
-			<ul class="container" v-for="(task, index) in projData.tasks" :key="index">
-				<li class="row justify-content-center mar-top2">
-					<input :id="task.name" class="col-1" type="checkbox" v-model="task.done">
-					<label :for="task.name" class="col-1" :class="{ done: task.done }"></label>
-					<span class="col-6 col-md-7 offset-md-1" :class="{ done: task.done }">
-						{{ task.name }}
-					</span>
-					<button class="col-3 col-md-2 btn btn-danger fontS08" @click="removeTask(index)">
-						Удалить
-					</button>
-				</li>
-			</ul>
-
-			<div class="container mar-top2 mar-bottom" v-if="taskState == 'B'">
+		</transition>
+		<transition name="fade4" mode="out-in">
+			<div class="container def-shadow mar-top" id="newPro" v-if="state == 'B'">
+				<div class="row">
+					<h3 class="col-7 col-md-5 mar-bottom mar-top2">Новый проект</h3>
+				</div>
 				<div class="row justify-content-center">
-					<input class="col-10 col-md-6 mar-right" id="in1" type="text" v-model="taskName"
-					placeholder="Название задачи" autofocus>
-					<button class="btn col-3 col-md-1 white_butn" @click="addTask">OK</button>
-					<button class="btn col-3 col-md-1 white_butn" @click="taskState = 'A'">X</button>
+					<input type="text" class="col-9 col-md-7" v-model="projectName"
+					placeholder="Название проекта" required autofocus>
+				</div>
+				<div class="row justify-content-center">
+					<input type="text" class="col-9 col-md-7 mar-top4 mar-bottom" v-model="projectDescrip"
+					required placeholder="Описание проекта">
+				</div>
+				<div class="row justify-content-center">
+					<button class="col-5 col-md-3 btn btn-primary "
+					@click="makeNewProject(projectName, projectDescrip)">
+						Добавить
+					</button>
+				</div>
+				<div class="row justify-content-center">
+					<button class="col-5 col-md-3 btn btn-primary col-3 mar-top4 mar-bottom" @click="state = 'A'">
+						Отмена
+					</button>
 				</div>
 			</div>
+		</transition>
+		<transition name="fade5" mode="out-in">
+			<div class="container def-shadow mar-top" v-if="state == 'C' && projectInfo.selected">
+				<div class="row justify-content-center">
+					<div class="col-12 fontS3 def-text-shadow mar-top2">{{ projectInfo.name }}</div>
+					<div class="col-12 fontS2">{{ projectInfo.descrip }}</div>
+					<button class="col-4 col-md-3 btn btn-primary mar-top2" @click="state = 'D'">Изменить</button>
+					<button class="col-4 col-md-3 btn btn-primary mar-top2" @click="projectDone">Выполнено</button>
+				</div>
+				<div class="mar-top3"></div>
+				<ul class="container">
+					<li class="row justify-content-center mar-top2" v-for="(task, index) in projectInfo.tasks" :key="index">
+						<input type="checkbox"
+									 v-model="task.done"
+									 :id="task.name"
+									 :class="{ checked: task.done }"
+									 class="col-1"
+									 @click="taskIsDone(index)">
+						<label :for="task.name" class="col-1" :class="{ done: task.done }"></label>
+						<span class="col-6 col-md-7 offset-md-1" :class="{ done: task.done }">
+							{{ task.name }}
+						</span>
+						<button class="col-3 col-md-2 btn btn-danger fontS08" @click="removeTask(index)">
+							Удалить
+						</button>
+					</li>
+				</ul>
 
-			<div class="row justify-content-center mar-top2">
-				<button class="col-6 col-sm-4 btn btn-primary" @click="taskState = 'B'">
-					Добавить задачу
-				</button>
-			</div>
+				<div class="container mar-top2 mar-bottom" v-if="taskState == 'B'">
+					<div class="row justify-content-center">
+						<input class="col-10 col-md-6 mar-right" id="in1" type="text" v-model="taskName"
+						placeholder="Название задачи" autofocus>
+						<button class="btn col-3 col-md-1 white_butn" @click="addTask">OK</button>
+						<button class="btn col-3 col-md-1 white_butn" @click="taskState = 'A'">X</button>
+					</div>
+				</div>
 
-			<div class="row justify-content-center mar-top4">
-				<button class="col-6 col-sm-4 btn btn-warning mar-bottom"
-				@click="closeEditor">
-					Закрыть
-				</button>
+				<div class="row justify-content-center mar-top2">
+					<button class="col-6 col-sm-4 btn btn-primary" @click="taskState = 'B'">
+						Добавить задачу
+					</button>
+				</div>
+
+				<div class="row justify-content-center mar-top4">
+					<button class="col-6 col-sm-4 btn btn-warning mar-bottom"
+					@click="closeEditor">
+						Закрыть
+					</button>
+				</div>
 			</div>
-		</div>
+		</transition>
+		<transition name="fade6" mode="out-in">
+			<div class="container def-shadow mar-top" id="changePro" v-if="state == 'D'">
+				<div class="row">
+					<h3 class="col-9 col-md-7 col-lg-5 mar-bottom mar-top2">Изменить проект</h3>
+				</div>
+				<div class="row justify-content-center">
+					<input type="text" class="col-9 col-md-7 col-offset-2" v-model="projectName"
+					placeholder="Новое название проекта" required autofocus>
+				</div>
+				<div class="row justify-content-center">
+					<input type="text" class="col-9 col-md-7 col-offset-2 mar-top4 mar-bottom"
+					v-model="projectDescrip" required placeholder="Новое описание проекта">
+				</div>
+				<div class="row justify-content-center">
+					<button class="col-5 col-md-3 btn btn-primary" @click="changeProject">Изменить</button>
+				</div>
+				<div class="row justify-content-center">
+					<button class="col-5 col-md-3 btn btn-primary mar-top4 mar-bottom" @click="state = 'C'">Отмена</button>
+				</div>
+			</div>
+		</transition>
+	</div>
 	</transition>
-	<transition name="fade6" mode="out-in">
-		<div class="container def-shadow mar-top" id="changePro" v-if="state == 'D'">
-			<div class="row">
-				<h3 class="col-9 col-md-7 col-lg-5 mar-bottom mar-top2">Изменить проект</h3>
-			</div>
-			<div class="row justify-content-center">
-				<input type="text" class="col-9 col-md-7 col-offset-2" v-model="projectName"
-				placeholder="Новое название проекта" required autofocus>
-			</div>
-			<div class="row justify-content-center">
-				<input type="text" class="col-9 col-md-7 col-offset-2 mar-top4 mar-bottom"
-				v-model="projectDescrip" required placeholder="Новое описание проекта">
-			</div>
-			<div class="row justify-content-center">
-				<button class="col-5 col-md-3 btn btn-primary" @click="changeProject">Изменить</button>
-			</div>
-			<div class="row justify-content-center">
-				<button class="col-5 col-md-3 btn btn-primary mar-top4 mar-bottom" @click="state = 'C'">Отмена</button>
-			</div>
-		</div>
-	</transition>
-</div>
-
 </template>
 
 <script>
 //import firestore from '../firebaseInit'
 
 export default {
-	props: ['addNewProject', 'projData'],
+	props: ['addProjectScreenStatus', 'projectInfo'],
 
 	data() {
 		return {
@@ -125,18 +130,30 @@ export default {
 		}
 	},
 
+  mounted() {
+    if (this.projectInfo.selected && this.projectInfo.tasks.length) {
+      this.projectInfo.tasks.forEach(task => {
+        if (task.done) {
+          let box = document.getElementById(task.name);
+          console.warn(box);
+        }
+      })
+    }
+  },
+
 	watch: {
 
-	  projData: function() {
-			if(this.projData.selected) {
+	  projectInfo: function() {
+			if(this.projectInfo.selected) {
 				this.state = 'C';
 				this.taskState = 'A';
 			}
 		},
 
-		addNewProject: function(newProjectState) {
-			if(newProjectState) {
+    addProjectScreenStatus: function(status) {
+			if(status) {
 				this.state = 'B';
+				console.warn('open!');
 				this.$emit('newProChangeState');
 				this.$emit('editorChangeState');
 			}
@@ -147,19 +164,20 @@ export default {
 	methods: {
 
 		projectDone() {
-			this.projData.done = true;
+			this.projectInfo.done = true;
 			this.state = 'A';
+			this.$emit('projectDone', this.projectInfo)
 		},
 
 		changeProject() {
 			if(this.projectName !== '' && this.projectDescrip !== '') {
-				this.projData.name = this.projectName;
-				this.projData.descrip = this.projectDescrip;
+				this.projectInfo.name = this.projectName;
+				this.projectInfo.descrip = this.projectDescrip;
 				this.projectName = '';
 				this.projectDescrip = '';
 				this.state = 'A';
         this.$emit('editorChangeState');
-        this.$emit('projectChanged', this.projData);
+        this.$emit('projectChanged', this.projectInfo);
 			}
 		},
 
@@ -169,8 +187,9 @@ export default {
 		},
 
 		removeTask(index) {
-			this.projData.tasks.splice(index, 1);
-			this.projData.tasknames.splice(index, 1);
+			this.projectInfo.tasks.splice(index, 1);
+			this.projectInfo.tasknames.splice(index, 1);
+			this.$emit('projectChanged', this.projectInfo);
 		},
 
 		getDone(task) {
@@ -178,16 +197,16 @@ export default {
 		},
 
 		addTask() {
-			let tsk_names = this.projData.tasknames;
+			let taskNames = this.projectInfo.tasknames;
 
-			if(this.taskName && tsk_names.indexOf(this.taskName) === -1) {
-				tsk_names.push(this.taskName);
-				this.projData.tasks.push({name: this.taskName, done: false});
-        this.$emit('projectChanged', this.projData);
+			if(this.taskName && taskNames.indexOf(this.taskName) === -1) {
+				taskNames.push(this.taskName);
+				this.projectInfo.tasks.push({name: this.taskName, done: false});
+        this.$emit('projectChanged', this.projectInfo);
 				this.taskName = '';
 				this.taskState = 'A';
 			}
-			else if(this.taskName && tsk_names.indexOf(this.taskName) !== -1) {
+			else if(this.taskName && taskNames.indexOf(this.taskName) !== -1) {
         this.taskName = '';
         this.$modal.show('dialog', {
           title: 'Предупреждение',
@@ -220,6 +239,11 @@ export default {
       }
 		},
 
+    taskIsDone(index) {
+      this.projectInfo.tasks[index].done = !this.projectInfo.tasks[index].done;
+      this.$emit('projectChanged', this.projectInfo);
+		},
+
 		makeNewProject(name, description) {
 			if(this.name !== '' && this.description !== '') {
 				let newProject = {};
@@ -229,7 +253,7 @@ export default {
 				newProject.tasknames = [];
 				newProject.done = false;
 				newProject.selected = false;
-				this.$emit('addProject', newProject);
+				this.$emit('addNewProject', newProject);
 				this.$emit('projectShow', newProject);
 				this.projectName = '';
 				this.projectDescrip = '';
@@ -244,7 +268,6 @@ export default {
 <style scoped>
 
 input[type="checkbox"] { display: none; }
-
 input[type="checkbox"] + label {
   display: block;
   height: 20px;
@@ -257,7 +280,6 @@ input[type="checkbox"] + label {
   -moz-user-select: none;
   -ms-user-select: none;
 }
-
 input[type="checkbox"] + label:before {
   content: '';
   display: block;
@@ -272,7 +294,6 @@ input[type="checkbox"] + label:before {
   -webkit-transition: all .12s, border-color .08s;
   transition: all .12s, border-color .08s;
 }
-
 input[type="checkbox"]:checked + label:before {
   width: 10px;
   top: -5px;
@@ -299,7 +320,7 @@ input[type="checkbox"]:checked + label:before {
 }
 
 .def-shadow {
-	background-color: rgba(248,248,255,0.9);
+	background-color: rgba(255,255,255,0.9);
 	border-radius: 5px;
 	box-shadow: 0 10px 28px rgba(0,0,0,0.25), 0 8px 12px rgba(0,0,0,0.26);
 }
@@ -330,7 +351,7 @@ input[type="checkbox"]:checked + label:before {
 }
 
 .mar-top {
-	margin-top: 9%;
+	margin-top: 8.6%;
 }
 
 .mar-top2 {
