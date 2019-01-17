@@ -8,39 +8,17 @@
             <div class="logo-text">aimslist</div>
           </div>
           <div class="col-3 offset-1 col-md-1 offset-md-7">
-            <button class="btn white login" @click="signInShow = true">Войти</button>
+            <router-link to="/signIn">
+              <button class="btn white login" @click="signInShow = true">
+                Войти
+              </button>
+            </router-link>
           </div>
         </div>
       </div>
     </transition>
-    <transition name="fade2" appear>
-      <div class="container-fluid">
-        <div class="row max-height">
-          <signIn v-if="signInShow"
-            @showoff="signInShow = false"
-          >
-          </signIn>
-          <leftSide v-if="signInShow == false"
-            :addNewProject = "makeProject"
-            :projectChanged = "changedProject"
-            @deleteProject = "changeEditorState"
-            @newProjectAdd = "newProjectScreen"
-            @projectEditor = "proEditorOn"
-          >
-          </leftSide>
-          <mainSide v-if="signInShow == false"
-            :addNewProject = "newProjectState"
-            :projData = "projectData"
-            @projectChanged = "changeProject"
-            @addProject = "addNewPro"
-            @projectShow = "showNewProject"
-            @newProChangeState = "changeProjectState"
-            @editorChangeState = "changeEditorState"
-          >
-          </mainSide>
-        </div>
-      </div>
-    </transition>
+
+    <router-view></router-view>
     <v-dialog/>
   </div>
 </template>
@@ -52,12 +30,11 @@
 
     data() {
       return {
-        signInShow: false,
-        newProjectState: false,
-        projectData: {selected: false},
-        showHeader: false,
-        makeProject: {},
-        changedProject: {}
+//        newProjectState: false,
+//        projectData: {selected: false},
+//        showHeader: false,
+//        makeProject: {},
+//        changedProject: {}
       }
     },
 
@@ -68,38 +45,7 @@
 
     methods: {
 
-      showNewProject(newproject) {
-        this.projectData = newproject;
-        this.projectData.selected = true;
-      },
-
-      proEditorOn(selected_project) {
-        this.projectData = selected_project;
-        this.projectData.selected = true;
-      },
-
-      addNewPro(newproject) {
-        this.makeProject = newproject;
-      },
-
-      changeProject(changedProject) {
-        this.changedProject = changedProject;
-      },
-
-      newProjectScreen() {
-        this.newProjectState = true;
-      },
-
-      changeProjectState() {
-        this.newProjectState = false;
-      },
-
-      changeEditorState() {
-        this.projectData = {selected: false};
-      }
-
     },
-
   }
 
 </script>
