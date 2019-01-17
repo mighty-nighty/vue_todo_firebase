@@ -1,0 +1,357 @@
+<template>
+
+<div id="left_side" class="col-12 col-sm-5 col-md-4 col-lg-3 overflow m_height">
+	<div class="container">
+		<div class="row mar-bottom mar-top2 mar-bottom2">
+			<div class="col-5 col-offset-1 col-sm-6"><h3><b>Группы</b></h3></div>
+			<div class="col-5 col-md-5">
+				<button class="btn btn-success addBtn" @click="showAddGroup">Добавить</button>
+			</div>
+		</div>
+		<transition name="fade7" mode="out-in">
+			<div class="container" v-if="showNewGroup">
+				<div class="row justify-content-center">
+					<input class="col-9 mar-bottom2 mar-top3" type="text" v-model="groupName"
+					placeholder="Название группы" autofocus>
+					<button class="col-11 btn btn-primary marg-top" @click="addNewGroup">
+						Добавить группу
+					</button>
+					<button class="col-11 btn btn-primary mar-top2" @click="cancelAddGroup">
+						Отмена
+					</button>
+				</div>
+			</div>
+		</transition>
+		<transition name="fade8" mode="out-in">
+			<div class="container" v-if="changeGroupScreen">
+				<div class="row justify-content-center">
+					<input class="col-9 mar-bottom2 mar-top3" type="text" v-model="groupName"
+					placeholder="Новое название" autofocus>
+					<button class="btn btn-primary col-11 marg-top" @click="changeGroup">
+						Изменить группу
+					</button>
+					<button class="btn btn-primary col-11 mar-top2" @click="cancelAddGroup">
+						Отмена
+					</button>
+				</div>
+			</div>
+		</transition>
+		<transition-group name="fade9" mode="out-in">
+			<div class="container"
+			v-for="(group, i) in groups" :key="i"
+			v-if="showNewGroup == false && changeGroupScreen == false">
+				<div class="row">
+					<div class="container btn mar-top2 bt-color"
+					:id="'con' + i"
+					tabindex="1"
+					>
+						<div class="row pad">
+							<a class="col-11 area t-overflow d-flex justify-content-start fontS2"
+							data-toggle="collapse" :href="'#' + i" role="button" aria-expanded="false" :aria-controls="i"
+							@focus="setFocus(i)"
+							@blur="removeFocus(i)"
+							>
+								{{ group.name }}
+							</a>
+							<div class="col-1 pointer vert-pad2 d-flex justify-content-end"
+							@click="deleteGroup(group.id)">
+								<i class="fas fa-trash-alt" title="Удалить" data-toggle="modal" data-target="#askModal"></i>
+							</div>
+						</div>
+					</div>
+					<div class="container collapse def-shadow" :id="i">
+					    <div class="row card card-body mar-top3">
+					    	<div class="btn btn-inner col-12 mar-bottom" @click="showChangeGroup(group)">
+					    		Изменить группу
+					    	</div>
+					    	<div class="btn btn-inner col-12" @click="newProject(group)">
+					    		Добавить проект
+					    	</div>
+					    	<div class="col-12"><hr></div>
+						    <div class="container">
+								<div class="row height2 mar-bottom b-project"
+									v-for="(project, index) in group.projects" :index="index"
+								>
+									<div class="col-11 pointer d-flex justify-content-start vert-pad3"
+										:class="{ project_done: project.done }"
+										@click="projectEditorOn(project)"
+									>
+										<span class="t-overflow">{{ project.name }}</span><br>
+									</div>
+									<div class="col-1 vert-pad pointer
+									d-flex justify-content-center"
+										:class="{ trash_done: project.done }"
+										@click="projectDelete(index, group)"
+									>
+										<i class="fas fa-trash-alt" title="Удалить"></i>
+									</div>
+								</div>
+							</div>
+					    </div>
+					</div>
+				</div>
+			</div>
+		</transition-group>
+	</div>
+</div>
+
+</template>
+
+<script>
+  import firestore from '../firebaseInit'
+
+  export default {
+    props: ['addNewProject', 'projectChanged'],
+
+    data() {
+      return {
+        changeGroupScreen: false,
+        showNewGroup: false,
+        groupName: '',
+        index: '',
+        selectedGroup: null,
+        selectedProject: null,
+        groups: []
+      }
+    },
+
+    created() {
+      firestore.collection('groups').onSnapshot(response => {
+        this.groups = [];
+        response.forEach(item => {
+          const data = {
+            id: item.id,
+            name: item.data().name,
+            projects: item.data().projects
+          };
+          this.groups.push(data);
+        })
+      })
+    },
+
+    watch: {
+      addNewProject: newproject => {
+        this.selectedGroup.projects.push(newproject);
+        firestore.collection('groups').doc(this.selectedGroup.id).set(this.selectedGroup, {merge: true});
+      },
+
+      projectChanged: changedProject => {
+        this.selectedGroup.projects.push(changedProject);
+        firestore.collection('groups').doc(this.selectedGroup.id).set(this.selectedGroup, {merge: true});
+      },
+    },
+
+    methods: {
+
+      setFocus(i) {
+        document.getElementById('con' + i).classList.add('focus');
+      },
+
+      removeFocus(i) {
+        document.getElementById('con' + i).classList.remove('focus');
+      },
+
+      showChangeGroup(group) {
+        this.selectedGroup = group;
+        this.changeGroupScreen = true;
+      },
+
+      changeGroup() {
+        if(this.groupName !== '') {
+          this.selectedGroup.name = this.groupName;
+          firestore.collection('groups').doc(this.selectedGroup.id).set(this.selectedGroup, {merge: true});
+          this.groupName = '';
+          this.cancelAddGroup();
+        }
+      },
+
+      deleteGroup(id) {
+        this.$modal.show('dialog', {
+          title: 'Deletion confirm',
+          text: 'Delete this group?',
+          buttons: [
+            {
+              title: 'Confirm',
+              default: true,
+              handler: () => {
+                firestore.collection('groups').doc(id).delete().then(() => console.log('deleted'));
+                this.$modal.hide('dialog');
+              }
+            },
+            {
+              title: 'Close',
+              handler: () => this.$modal.hide('dialog')
+            }
+          ]
+        })
+      },
+
+      projectDelete(index, group) {
+        this.$modal.show('dialog', {
+          title: 'Deletion confirm',
+          text: 'Delete this project?',
+          buttons: [
+            {
+              title: 'Confirm',
+              default: true,
+              handler: () => {
+                group.projects.splice(index, 1);
+                firestore.collection('groups').doc(group.id).set(group, {merge: true});
+                this.$emit('deleteProject');
+                this.$modal.hide('dialog');
+              }
+            },
+            {
+              title: 'Close',
+              handler: () => this.$modal.hide('dialog')
+            }
+          ]
+        })
+      },
+
+      projectEditorOn(project) {
+        this.selectedProject = project;
+        this.$emit('projectEditor', this.selectedProject);
+      },
+
+      cancelAddGroup() {
+        this.showNewGroup = false;
+        this.changeGroupScreen = false;
+      },
+
+      showAddGroup() {
+        this.showNewGroup = true;
+        this.changeGroupScreen = false;
+      },
+
+      addNewGroup() {
+        if(this.groupName !== '') {
+          let group = {};
+          group.name = this.groupName;
+          group.projects = [];
+//          this.groups.push(group);
+          firestore.collection('groups').add(group);
+          this.showNewGroup = false;
+          this.groupName = '';
+          this.$emit('changeEditor');
+        }
+      },
+
+      newProject(group) {
+        this.selectedGroup = group;
+        this.$emit('newProjectAdd');
+      }
+
+    }
+
+  }
+
+</script>
+
+<style scoped>
+
+.t-overflow {
+	overflow: hidden;
+	text-overflow: clip;
+	-o-text-overflow: clip;
+	padding: 0 6px 0 6px;
+}
+
+.focus {
+	background-color: #90EE90;
+}
+
+.card {
+	border-radius: 0;
+}
+
+.def-shadow {
+	box-shadow: 0 10px 24px rgba(0,0,0,0.25), 0 8px 12px rgba(0,0,0,0.22);
+}
+
+.bt-color {
+    transition: background-color 0.4s ease;
+    display: block;
+}
+
+.bt-color:hover {
+	background-color: #90EE90;
+}
+
+.bt-color:focus {
+	background-color: #90EE90;
+}
+
+.height2 {
+	height: 35px;
+}
+
+.pointer {
+	cursor: pointer;
+}
+
+.vert-pad {
+	padding: 8px 10px 0 0;
+}
+
+.vert-pad2 {
+	padding: 4px 10px 0 0;
+}
+
+.vert-pad3 {
+	padding: 4.8px 6px 0 6.5px;
+}
+
+.btn-inner {
+	background-color: #90EE90;
+	color: #007bff;
+	box-shadow: 0 8px 22px rgba(0,0,0,0.25), 0 7px 12px rgba(0,0,0,0.22);
+}
+
+.btn-inner:hover {
+	transition: background-color color .4s ease;
+	background-color: #3CB371;
+	color: #FFF;
+}
+
+.marg-top {
+	margin-top: 6.5%;
+}
+
+.mar-top3 {
+	margin-top: 2%;
+}
+
+.mar-bottom {
+	margin-bottom: 4.5%;
+}
+
+.mar-bottom2 {
+	margin-bottom: 5.8%;
+}
+
+.fontS2 {
+	font-size: 1.05rem;
+}
+
+.b-project {
+	background-color: #1E90FF;
+	color: white;
+}
+
+.b-project:hover {
+	transition: background-color 0.4s ease;
+	background-color: #FFA500;
+}
+
+.project_done {
+	background-color: #808080;
+	text-decoration: line-through;
+	pointer-events: none;
+}
+
+.trash_done {
+	background-color: #808080;
+}
+
+</style>
