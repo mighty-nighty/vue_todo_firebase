@@ -224,7 +224,7 @@ button:focus {
   transition-delay: .2s;
 }
 .fade7-leave-active {
-  transition: all 1s ease;
+  transition: all .1s ease;
 }
 .fade7-enter, .fade7-leave-to {
   transform: translateX(8px);

@@ -41,7 +41,7 @@
 				<transition-group name="fade9" mode="out-in">
 					<div class="container"
 					v-for="(group, i) in groups" :key="i"
-					v-if="showNewGroup == false && changeGroupScreen == false">
+					v-if="!showNewGroup && !changeGroupScreen">
 						<div class="row">
 							<div class="container btn mar-top2 bt-color"
 							:id="'con' + i"

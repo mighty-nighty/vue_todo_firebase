@@ -2,7 +2,7 @@
 	<transition name="fade2" appear>
 	<div class="col-12 col-sm-7 col-md-8 col-xl-9 alice desktop overflow m_height">
 		<transition name="fade3" mode="out-in">
-			<div class="container custom-height" v-if="state == 'A'">
+			<div class="container custom-height" v-if="state === 'A'">
 				<div class="row">
 					<div class="col-12 padd def-shadow mar-top5">
 						<h3>
@@ -13,7 +13,7 @@
 			</div>
 		</transition>
 		<transition name="fade4" mode="out-in">
-			<div class="container def-shadow mar-top" id="newPro" v-if="state == 'B'">
+			<div class="container def-shadow mar-top" id="newPro" v-if="state === 'B'">
 				<div class="row">
 					<h3 class="col-7 col-md-5 mar-bottom mar-top2">Новый проект</h3>
 				</div>
@@ -39,7 +39,7 @@
 			</div>
 		</transition>
 		<transition name="fade5" mode="out-in">
-			<div class="container def-shadow mar-top" v-if="state == 'C' && projectInfo.selected">
+			<div class="container def-shadow mar-top" v-if="state === 'C' && projectInfo.selected">
 				<div class="row justify-content-center">
 					<div class="col-12 fontS3 def-text-shadow mar-top2">{{ projectInfo.name }}</div>
 					<div class="col-12 fontS2">{{ projectInfo.descrip }}</div>
@@ -65,7 +65,7 @@
 					</li>
 				</ul>
 
-				<div class="container mar-top2 mar-bottom" v-if="taskState == 'B'">
+				<div class="container mar-top2 mar-bottom" v-if="taskState === 'B'">
 					<div class="row justify-content-center">
 						<input class="col-10 col-md-6 mar-right" id="in1" type="text" v-model="taskName"
 						placeholder="Название задачи" autofocus>
@@ -89,7 +89,7 @@
 			</div>
 		</transition>
 		<transition name="fade6" mode="out-in">
-			<div class="container def-shadow mar-top" id="changePro" v-if="state == 'D'">
+			<div class="container def-shadow mar-top" id="changePro" v-if="state === 'D'">
 				<div class="row">
 					<h3 class="col-9 col-md-7 col-lg-5 mar-bottom mar-top2">Изменить проект</h3>
 				</div>
