@@ -131,14 +131,13 @@ export default {
 	},
 
   mounted() {
-    if (this.projectInfo.selected && this.projectInfo.tasks.length) {
-      this.projectInfo.tasks.forEach(task => {
-        if (task.done) {
-          let box = document.getElementById(task.name);
-          console.warn(box);
-        }
-      })
-    }
+//    if (this.projectInfo.selected && this.projectInfo.tasks.length) {
+//      this.projectInfo.tasks.forEach(task => {
+//        if (task.done) {
+//          let box = document.getElementById(task.name);
+//        }
+//      })
+//    }
   },
 
 	watch: {
@@ -153,7 +152,6 @@ export default {
     addProjectScreenStatus: function(status) {
 			if(status) {
 				this.state = 'B';
-				console.warn('open!');
 				this.$emit('newProChangeState');
 				this.$emit('editorChangeState');
 			}

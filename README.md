@@ -1,6 +1,8 @@
-# vue_dev
+# vue_todo
 
 > My first Vue.js project
+
+Авторизация пользователей работает через сервис https://firebase.google.com/, сохранение групп конкретного пользователя пока не реализовано.
 
 ## Build Setup
 

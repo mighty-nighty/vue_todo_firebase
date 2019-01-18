@@ -9,7 +9,7 @@
           <input type="password" class="col-9 col-md-6" placeholder="Пароль" v-model="password">
         </div>
         <div class="row justify-content-center mar-top3">
-          <button type="submit" class="btn btn-primary col-6 col-md-3" @click.prevent="registerUser">Регистрация</button>
+          <button type="submit" class="btn btn-primary col-6 col-md-3" @click.prevent="registerUser">Зарегистрировать</button>
         </div>
       </form>
       <div class="row justify-content-center marg-top">
@@ -37,8 +37,7 @@
         this.$router.push('/');
       },
 
-      registerUser(e) {
-//			  e.preventDefault();
+      registerUser() {
         firebase.auth().createUserWithEmailAndPassword(this.email, this.password)
           .then(res => {
               this.$modal.show('dialog', {
@@ -53,7 +52,8 @@
                     }
                   }
                 ]
-              })
+              });
+              this.$router.push('/main');
             },
             err => {
               alert(err.message);
