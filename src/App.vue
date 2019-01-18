@@ -7,10 +7,16 @@
             <img id="star" class="rotate icon" src="./img/star.svg">
             <div class="logo-text">aimslist</div>
           </div>
-          <div class="col-3 offset-1 col-md-1 offset-md-7">
-            <router-link to="/signIn">
-              <button class="btn white login" @click="signInShow = true">
+          <div class="col-2 col-md-2 offset-md-5 justify-content-center align-items-center" id="user-email">
+            {{userEmail}}
+          </div>
+          <div class="col-3 col-md-1">
+            <router-link to="/">
+              <button class="btn white login" v-if="!isLoggedIn">
                 Войти
+              </button>
+              <button class="btn white login" @click="logout" v-if="isLoggedIn">
+                Выйти
               </button>
             </router-link>
           </div>
@@ -24,6 +30,7 @@
 </template>
 
 <script>
+  import firebase from 'firebase'
 
   export default {
     name: 'app',
@@ -35,7 +42,22 @@
 //        showHeader: false,
 //        makeProject: {},
 //        changedProject: {}
+        isLoggedIn: false,
+        userEmail: ''
       }
+    },
+
+    created() {
+      firebase.auth().onAuthStateChanged(user => {
+        if (user) {
+          this.isLoggedIn = true;
+          this.userEmail = user.email;
+        }
+        else {
+          this.isLoggedIn = false;
+          this.userEmail = '';
+        }
+      });
     },
 
     mounted() {
@@ -44,6 +66,10 @@
     },
 
     methods: {
+
+      logout() {
+        firebase.auth().signOut().then(() => this.$router.go({path: '/signIn'}))
+      }
 
     },
   }
@@ -109,10 +135,6 @@ li {
 .blue {
   background-color: #1E90FF;
   color: white;
-}
-
-.max-height {
-  height: 95vh;
 }
 
 </style>

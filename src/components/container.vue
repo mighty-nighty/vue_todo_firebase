@@ -2,18 +2,15 @@
   <!--<transition name="fade2" mode="out-in">-->
     <div class="container-fluid">
       <div class="row max-height">
-        <transition name="fade2" mode="out-in">
-          <leftSide :projectChanged = "changedProject"
-                    :groups = "groups"
-                    @changeGroupName = "changeGroupName"
-                    @deleteGroup = "deleteGroup"
-                    @addNewGroup = "addNewGroup"
-                    @deleteProject = "deleteProject"
-                    @newProjectScreenOpen = "openNewProjectScreen"
-                    @showProjectEditor = "showProjectEditor"
-          >
-          </leftSide>
-        </transition>
+        <leftSide :groups = "groups"
+                  @changeGroupName = "changeGroupName"
+                  @deleteGroup = "deleteGroup"
+                  @addNewGroup = "addNewGroup"
+                  @deleteProject = "deleteProject"
+                  @newProjectScreenOpen = "openNewProjectScreen"
+                  @showProjectEditor = "showProjectEditor"
+        >
+        </leftSide>
         <mainSide :addProjectScreenStatus = "newProjectScreenOpenStatus"
                   :projectInfo = "projectInfo"
                   @projectDone = "projectDone"
@@ -41,9 +38,6 @@
         selectedProjectIndex: null,
         newProjectScreenOpenStatus: false,
         projectInfo: {selected: false},
-        showHeader: false,
-//        makeProject: {},
-        changedProject: {}
       }
     },
 
@@ -110,7 +104,6 @@
       },
 
       addNewProject(newProject) {
-//        this.makeProject = newProject;
         this.selectedGroup.projects.push(newProject);
         firestore.collection('groups').doc(this.selectedGroup.id).set(this.selectedGroup, {merge: true});
       },
@@ -127,7 +120,6 @@
       openNewProjectScreen(selectedGroup) {
         this.newProjectScreenOpenStatus = true;
         this.selectedGroup = selectedGroup;
-        console.warn('gro', this.selectedGroup)
       },
 
       changeProjectState() {
@@ -168,65 +160,6 @@
 </script>
 
 <style>
-
-  h1, h2 {
-    font-weight: normal;
-  }
-
-  ul {
-    list-style-type: none;
-    padding: 0;
-  }
-
-  li {
-    display: inline-block;
-    margin: 0 10px;
-  }
-
-  .icon {
-    width: 34px;
-  }
-  .logo-text {
-    font-family: 'Lobster', cursive;
-    font-style: normal;
-    font-size: 2rem;
-    margin: 0 0 0 6px;
-  }
-
-  .rotateStart {
-    animation: rotate .9s linear;
-  }
-
-  .rotate:hover {
-    animation: rotate 1.8s infinite linear;
-  }
-
-  @keyframes rotate{
-
-    from {
-      transform:  rotate(0);
-    }
-    to {
-      transform: rotate(360deg);
-    }
-
-  }
-
-  .white {
-    background-color: #FFFFFF;
-  }
-
-  .title {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding-bottom: 4px;
-  }
-
-  .blue {
-    background-color: #1E90FF;
-    color: white;
-  }
 
   .max-height {
     height: 95vh;

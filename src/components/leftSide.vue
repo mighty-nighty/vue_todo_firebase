@@ -41,7 +41,7 @@
 				<transition-group name="fade9" mode="out-in">
 					<div class="container"
 					v-for="(group, i) in groups" :key="i"
-					v-if="showNewGroup == false && changeGroupScreen == false">
+					v-if="!showNewGroup && !changeGroupScreen">
 						<div class="row">
 							<div class="container btn mar-top2 bt-color"
 							:id="'con' + i"
@@ -99,10 +99,9 @@
 </template>
 
 <script>
-//  import firestore from '../firebaseInit'
 
   export default {
-    props: ['projectChanged', 'groups'],
+    props: ['groups'],
 
     data() {
       return {
@@ -110,9 +109,6 @@
         showNewGroup: false,
         groupName: '',
         index: '',
-        selectedGroup: null,
-        selectedProject: null,
-//        groups: []
       }
     },
 
@@ -130,23 +126,14 @@
 //      })
 //    },
 
-    watch: {
-//      groups: groups => {
-//        console.warn(this.props.groups)
-//			},
-
-      addNewProject: newproject => {
-        if (this.selectedGroup) {
-          this.selectedGroup.projects.push(newproject);
-          firestore.collection('groups').doc(this.selectedGroup.id).set(this.selectedGroup, {merge: true});
-				}
-      },
-
-      projectChanged: changedProject => {
-        this.selectedGroup.projects.push(changedProject);
-        firestore.collection('groups').doc(this.selectedGroup.id).set(this.selectedGroup, {merge: true});
-      },
-    },
+//    watch: {
+//
+//      projectChanged: changedProject => {
+//        this.selectedGroup.projects.push(changedProject);
+//        firestore.collection('groups').doc(this.selectedGroup.id).set(this.selectedGroup, {merge: true});
+//      },
+//
+//    },
 
     methods: {
 
@@ -166,11 +153,9 @@
       changeGroup() {
         if(this.groupName !== '') {
           this.selectedGroup.name = this.groupName;
-//          firestore.collection('groups').doc(this.selectedGroup.id).set(this.selectedGroup, {merge: true});
           this.groupName = '';
           this.cancelAddGroup();
           this.$emit('changeGroupName', this.selectedGroup);
-//          this.$emit('deleteGroup', id);
         }
       },
 
@@ -179,31 +164,10 @@
       },
 
       projectDelete(index, group) {
-        this.$emit('deleteProject', index, group)
-//        this.$modal.show('dialog', {
-//          title: 'Deletion confirm',
-//          text: 'Delete this project?',
-//          buttons: [
-//            {
-//              title: 'Confirm',
-//              default: true,
-//              handler: () => {
-//                group.projects.splice(index, 1);
-//                firestore.collection('groups').doc(group.id).set(group, {merge: true});
-//                this.$emit('deleteProject');
-//                this.$modal.hide('dialog');
-//              }
-//            },
-//            {
-//              title: 'Close',
-//              handler: () => this.$modal.hide('dialog')
-//            }
-//          ]
-//        })
+        this.$emit('deleteProject', index, group)//
       },
 
       showProjectEditor(group, project, index) {
-        this.selectedProject = project;
         this.$emit('showProjectEditor', group, project, index);
       },
 
@@ -222,8 +186,6 @@
           let group = {};
           group.name = this.groupName;
           group.projects = [];
-//          this.groups.push(group);
-//          firestore.collection('groups').add(group);
           this.showNewGroup = false;
           this.groupName = '';
           this.$emit('addNewGroup', group);

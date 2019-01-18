@@ -51,6 +51,10 @@ button:focus {
   color: #2c3e50;
 }
 
+#user-email {
+	display: flex;
+}
+
 .overflow {
 	overflow: auto;
 	-moz-overflow: auto;
@@ -199,20 +203,20 @@ button:focus {
   opacity: 0;
 }
 
+.fade6-enter {
+	transform: translateX(10px);
+	opacity: 0;
+}
 .fade6-enter-active {
   transition: all .5s ease;
   transition-delay: .2s;
 }
 .fade6-leave-active {
-  transition: all .01s;
-}
-.fade6-enter {
-  transform: translateX(10px);
-  opacity: 0;
+	transition: all .01s;
 }
 .fade6-leave-to {
   transform: translateX(10px);
-  display: none;
+	display: none;
 }
 
 .fade7-enter-active {
@@ -264,6 +268,10 @@ button:focus {
 		height: 24.6rem;
 	}
 
+	#user-email {
+		display: none;
+	}
+
 	.login {
     	top: .2rem;
     	color: #1E90FF;
@@ -271,8 +279,8 @@ button:focus {
 	}
 
 	.desktop {
-		height: 33.5rem;
-		background-size: 85% 70%;
+		/*height: 33rem;*/
+		background-size: 25rem 21rem;
 	}
 
 	.mar-top4 {
@@ -297,13 +305,38 @@ button:focus {
 		height: 30rem;
 	}
 
+	#user-email {
+		display: none;
+	}
+
+}
+
+@media screen and (min-width: 576px) and (max-width: 667px) {
+
+	#user-email {
+		display: none;
+	}
+
+	.desktop {
+		background-size: 26rem 23rem;
+	}
+
+}
+
+@media screen and (min-width: 667px) and (max-width: 768px) {
+
+	#user-email {
+		display: none;
+	}
+
 }
 
 @media screen and (min-width: 767px) and (max-width: 1023px) {
 
-	.desktop {
-		background-size: 87% 72%;
-	}
+	/*.desktop {*/
+		/*background-size: 28rem 25rem;*/
+		/*background-position: center;*/
+	/*}*/
 
 	.mar-top5 {
 		margin-top: 14%;
@@ -317,10 +350,10 @@ button:focus {
 
 @media screen and (min-width: 1024px) and (max-width: 1279px) {
 
-	.desktop {
-		background-size: 68% 58%;
-		background-position: center;
-	}
+	/*.desktop {*/
+		/*background-size: 68% 58%;*/
+		/*background-position: center;*/
+	/*}*/
 
 	.addBtn {
 		margin: 0 8px;
