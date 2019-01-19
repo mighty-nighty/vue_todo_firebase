@@ -38,19 +38,24 @@
         selectedProjectIndex: null,
         newProjectScreenOpenStatus: false,
         projectInfo: {selected: false},
+        userId: ''
       }
     },
 
     created() {
+      this.userId = localStorage.getItem('userId');
+
       firestore.collection('groups').onSnapshot(response => {
         this.groups = [];
         response.forEach(item => {
-          const data = {
-            id: item.id,
-            name: item.data().name,
-            projects: item.data().projects
-          };
-          this.groups.push(data);
+          if (!item.data().userId || item.data().userId === this.userId) {
+            const data = {
+              id: item.id,
+              name: item.data().name,
+              projects: item.data().projects
+            };
+            this.groups.push(data);
+          }
         })
       })
     },
@@ -67,6 +72,7 @@
       },
 
       addNewGroup(newGroup) {
+        newGroup.userId = this.userId;
         firestore.collection('groups').add(newGroup);
       },
 

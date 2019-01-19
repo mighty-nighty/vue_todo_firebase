@@ -11,14 +11,14 @@
             {{userEmail}}
           </div>
           <div class="col-3 col-md-1">
-            <router-link to="/">
-              <button class="btn white login" v-if="!isLoggedIn">
-                Войти
-              </button>
+            <!--<router-link to="/">-->
+              <!--<button class="btn white login" v-if="!isLoggedIn">-->
+                <!--Войти-->
+              <!--</button>-->
+            <!--</router-link>-->
               <button class="btn white login" @click="logout" v-if="isLoggedIn">
                 Выйти
               </button>
-            </router-link>
           </div>
         </div>
       </div>
@@ -68,7 +68,8 @@
     methods: {
 
       logout() {
-        firebase.auth().signOut().then(() => this.$router.go({path: '/signIn'}))
+        firebase.auth().signOut().then(() => this.$router.push('/'));
+        localStorage.removeItem('userId');
       }
 
     },

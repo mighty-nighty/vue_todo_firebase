@@ -40,6 +40,7 @@
       registerUser() {
         firebase.auth().createUserWithEmailAndPassword(this.email, this.password)
           .then(res => {
+              localStorage.setItem('userId', res.user.uid);
               this.$modal.show('dialog', {
                 title: 'Сообщение',
                 text: `Пользователь ${res.user.email} зарегистрирован успешно!`,

@@ -46,7 +46,8 @@
 			  e.preventDefault();
 				firebase.auth().signInWithEmailAndPassword(this.email, this.password)
 					.then(res => {
-					  console.log(res);
+              localStorage.setItem('userId', res.user.uid);
+//					  console.log(res);
               this.$modal.show('dialog', {
               title: 'Сообщение',
               text: `Вы вошли как ${res.user.email}`,

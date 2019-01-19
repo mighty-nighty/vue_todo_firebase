@@ -114,7 +114,6 @@
 </template>
 
 <script>
-//import firestore from '../firebaseInit'
 
 export default {
 	props: ['addProjectScreenStatus', 'projectInfo'],
