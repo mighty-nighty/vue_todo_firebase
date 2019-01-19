@@ -1,6 +1,6 @@
 # vue_todo
 
-> My first Vue.js project
+> My Vue.js project with firebase
 
 Приложение работает с сервисом https://firebase.google.com/ в тестовом режиме.
 Реализовано добавление личных групп для каждого пользователя.
