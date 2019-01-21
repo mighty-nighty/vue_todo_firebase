@@ -1,21 +1,21 @@
 <template>
 	<transition name="fade2" appear>
-	<div class="col-12 col-sm-7 col-md-8 col-xl-9 alice desktop overflow m_height">
+	<div class="col-12 col-sm-7 col-md-8 col-xl-9 desktop overflow m_height">
 		<transition name="fade3" mode="out-in">
 			<div class="container custom-height" v-if="state === 'A'">
 				<div class="row">
-					<div class="col-12 padd def-shadow mar-top5">
-						<h3>
+					<div class="col-12 padd def-shadow mainside-block">
+						<div class="block-title">
 							Нажмите на группу<br>чтобы добавить новый проект
-						</h3>
+						</div>
 					</div>
 				</div>
 			</div>
 		</transition>
 		<transition name="fade4" mode="out-in">
-			<div class="container def-shadow mar-top" id="newPro" v-if="state === 'B'">
+			<div class="container def-shadow mainside-block" id="newPro" v-if="state === 'B'">
 				<div class="row">
-					<h3 class="col-7 col-md-5 mar-bottom mar-top2">Новый проект</h3>
+					<div class="col-9 col-md-5 mar-bottom m-top2 block-title">Новый проект</div>
 				</div>
 				<div class="row justify-content-center">
 					<input type="text" class="col-9 col-md-7" v-model="projectName"
@@ -39,33 +39,34 @@
 			</div>
 		</transition>
 		<transition name="fade5" mode="out-in">
-			<div class="container def-shadow mar-top" v-if="state === 'C' && projectInfo.selected">
+			<div class="container def-shadow mainside-block" v-if="state === 'C' && projectInfo.selected">
 				<div class="row justify-content-center">
-					<div class="col-12 fontS3 def-text-shadow mar-top2">{{ projectInfo.name }}</div>
+					<div class="col-12 fontS3 def-text-shadow">{{ projectInfo.name }}</div>
 					<div class="col-12 fontS2">{{ projectInfo.descrip }}</div>
-					<button class="col-4 col-md-3 btn btn-primary mar-top2" @click="state = 'D'">Изменить</button>
-					<button class="col-4 col-md-3 btn btn-primary mar-top2" @click="projectDone">Выполнено</button>
+					<button class="col-4 col-md-3 btn btn-primary m-top2" @click="state = 'D'">Изменить</button>
+					<button class="col-4 col-md-3 btn btn-primary m-top2" @click="projectDone">Выполнено</button>
 				</div>
-				<div class="mar-top3"></div>
-				<ul class="container">
-					<li class="row justify-content-center mar-top2" v-for="(task, index) in projectInfo.tasks" :key="index">
+				<div class="mt-4"></div>
+				<ul class="container mb-4">
+					<li class="row justify-content-center m-top2" v-for="(task, index) in projectInfo.tasks" :key="index">
 						<input type="checkbox"
 									 v-model="task.done"
 									 :id="task.name"
 									 :class="{ checked: task.done }"
-									 class="col-1"
+									 class="col-2 align-self-start"
 									 @click="taskIsDone(index)">
-						<label :for="task.name" class="col-1" :class="{ done: task.done }"></label>
-						<span class="col-6 col-md-7 offset-md-1" :class="{ done: task.done }">
+						<label :for="task.name" class="col-2 align-self-start" :class="{ done: task.done }"></label>
+						<span class="col-6 align-self-center" :class="{ done: task.done }">
 							{{ task.name }}
 						</span>
-						<button class="col-3 col-md-2 btn btn-danger fontS08" @click="removeTask(index)">
+						<button class="col-2 align-self-end btn btn-danger d-flex justify-content-center fontS8"
+										@click="removeTask(index)">
 							Удалить
 						</button>
 					</li>
 				</ul>
 
-				<div class="container mar-top2 mar-bottom" v-if="taskState === 'B'">
+				<div class="container m-top2 mar-bottom" v-if="taskState === 'B'">
 					<div class="row justify-content-center">
 						<input class="col-10 col-md-6 mar-right" id="in1" type="text" v-model="taskName"
 						placeholder="Название задачи" autofocus>
@@ -74,14 +75,14 @@
 					</div>
 				</div>
 
-				<div class="row justify-content-center mar-top2">
+				<div class="row justify-content-center m-top2">
 					<button class="col-6 col-sm-4 btn btn-primary" @click="taskState = 'B'">
 						Добавить задачу
 					</button>
 				</div>
 
 				<div class="row justify-content-center mar-top4">
-					<button class="col-6 col-sm-4 btn btn-warning mar-bottom"
+					<button class="col-6 col-sm-4 btn btn-warning mb-3"
 					@click="closeEditor">
 						Закрыть
 					</button>
@@ -91,7 +92,7 @@
 		<transition name="fade6" mode="out-in">
 			<div class="container def-shadow mar-top" id="changePro" v-if="state === 'D'">
 				<div class="row">
-					<h3 class="col-9 col-md-7 col-lg-5 mar-bottom mar-top2">Изменить проект</h3>
+					<h3 class="col-9 col-md-7 col-lg-5 mar-bottom m-top2">Изменить проект</h3>
 				</div>
 				<div class="row justify-content-center">
 					<input type="text" class="col-9 col-md-7 col-offset-2" v-model="projectName"
@@ -322,14 +323,6 @@ input[type="checkbox"]:checked + label:before {
 	box-shadow: 0 10px 28px rgba(0,0,0,0.25), 0 8px 12px rgba(0,0,0,0.26);
 }
 
-.padd {
-	padding: 2.8vh;
-}
-
-.fontS08 {
-	font-size: 0.9rem;
-}
-
 .done {
 	text-decoration: line-through;
 	color: rgba(112, 128, 144, 0.65);
@@ -351,12 +344,12 @@ input[type="checkbox"]:checked + label:before {
 	margin-top: 8.6%;
 }
 
-.mar-top2 {
+.m-top2 {
 	margin-top: 1.8%;
 }
 
 .mar-bottom {
-	margin-bottom: 3%;
+	margin-bottom: 3.3%;
 }
 
 </style>

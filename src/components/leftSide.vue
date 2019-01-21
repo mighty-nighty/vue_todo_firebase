@@ -3,9 +3,9 @@
 		<div id="left_side" class="col-12 col-sm-5 col-md-4 col-lg-3 overflow m_height">
 			<div class="container">
 				<transition name="fade2" appear>
-					<div class="row mar-bottom mar-top2 mar-bottom2">
+					<div class="row m-top2 m-bottom2">
 						<div class="col-5 col-offset-1 col-sm-6"><h3><b>Группы</b></h3></div>
-						<div class="col-5 col-md-5">
+						<div class="col-5 col-offset-1 col-sm-6">
 							<button class="btn btn-success addBtn" @click="showAddGroup">Добавить</button>
 						</div>
 					</div>
@@ -13,12 +13,12 @@
 				<transition name="fade7" mode="out-in">
 					<div class="container" v-if="showNewGroup">
 						<div class="row justify-content-center">
-							<input class="col-9 mar-bottom2 mar-top3" type="text" v-model="groupName"
+							<input class="col-9 m-bottom2 m-top3" type="text" v-model="groupName"
 							placeholder="Название группы" autofocus>
-							<button class="col-11 btn btn-primary marg-top" @click="addNewGroup">
+							<button class="col-11 btn btn-primary m-top" @click="addNewGroup">
 								Добавить группу
 							</button>
-							<button class="col-11 btn btn-primary mar-top2" @click="cancelAddGroup">
+							<button class="col-11 btn btn-primary m-top2" @click="cancelAddGroup">
 								Отмена
 							</button>
 						</div>
@@ -27,12 +27,12 @@
 				<transition name="fade8" mode="out-in">
 					<div class="container" v-if="changeGroupScreen">
 						<div class="row justify-content-center">
-							<input class="col-9 mar-bottom2 mar-top3" type="text" v-model="groupName"
+							<input class="col-9 m-bottom2 m-top3" type="text" v-model="groupName"
 							placeholder="Новое название" autofocus>
-							<button class="btn btn-primary col-11 marg-top" @click="changeGroup">
+							<button class="btn btn-primary col-11 m-top" @click="changeGroup">
 								Изменить группу
 							</button>
-							<button class="btn btn-primary col-11 mar-top2" @click="cancelAddGroup">
+							<button class="btn btn-primary col-11 m-top2" @click="cancelAddGroup">
 								Отмена
 							</button>
 						</div>
@@ -43,7 +43,7 @@
 					v-for="(group, i) in groups" :key="i"
 					v-if="!showNewGroup && !changeGroupScreen">
 						<div class="row">
-							<div class="container btn mar-top2 bt-color"
+							<div class="container btn m-top2 bt-color"
 							:id="'con' + i"
 							tabindex="1"
 							>
@@ -62,8 +62,8 @@
 								</div>
 							</div>
 							<div class="container collapse def-shadow" :id="i">
-									<div class="row card card-body mar-top3">
-										<div class="btn btn-inner col-12 mar-bottom" @click="showChangeGroup(group)">
+									<div class="row card card-body m-top3">
+										<div class="btn btn-inner col-12 m-bottom" @click="showChangeGroup(group)">
 											Изменить группу
 										</div>
 										<div class="btn btn-inner col-12" @click="newProjectAdd(group)">
@@ -71,7 +71,7 @@
 										</div>
 										<div class="col-12"><hr></div>
 										<div class="container">
-										<div class="row height2 mar-bottom b-project project-wrapper"
+										<div class="row height2 m-bottom b-project project-wrapper"
 											v-for="(project, index) in group.projects" :index="index"
 										>
 											<div class="col-11 d-flex justify-content-start vert-pad3"
@@ -127,12 +127,10 @@
 //    },
 
 //    watch: {
-//
 //      projectChanged: changedProject => {
 //        this.selectedGroup.projects.push(changedProject);
 //        firestore.collection('groups').doc(this.selectedGroup.id).set(this.selectedGroup, {merge: true});
 //      },
-//
 //    },
 
     methods: {
@@ -270,25 +268,25 @@
 }
 
 .btn-inner:hover {
-	transition: background-color color .4s ease;
+	transition: background-color .4s ease;
 	background-color: #3CB371;
 	color: #FFF;
 }
 
-.marg-top {
+.m-top {
 	margin-top: 6.5%;
 }
 
-.mar-top3 {
+.m-top3 {
 	margin-top: 2%;
 }
 
-.mar-bottom {
+.m-bottom {
 	margin-bottom: 4.5%;
 }
 
-.mar-bottom2 {
-	margin-bottom: 5.8%;
+.m-bottom2 {
+	margin-bottom: 0.93rem;
 }
 
 .fontS2 {

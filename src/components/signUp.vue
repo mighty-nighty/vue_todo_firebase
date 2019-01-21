@@ -8,7 +8,7 @@
         <div class="row justify-content-center marg-top">
           <input type="password" class="col-9 col-md-6" placeholder="Пароль" v-model="password">
         </div>
-        <div class="row justify-content-center mar-top3">
+        <div class="row justify-content-center m-top3">
           <button type="submit" class="btn btn-primary col-6 col-md-3" @click.prevent="registerUser">Зарегистрировать</button>
         </div>
       </form>
@@ -68,7 +68,7 @@
 
 <style scoped>
 
-  .mar-top3 {
+  .m-top3 {
     margin-top: 4.8%;
   }
 

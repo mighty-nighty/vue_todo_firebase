@@ -92,6 +92,11 @@ button:focus {
 	background-color: #F0F8FF;
 }
 
+.block-title {
+	font-size: 1.75rem;
+	line-height: 2.36rem;
+}
+
 .m_height {
   height: 100%;
 }
@@ -120,25 +125,26 @@ button:focus {
 }
 
 .desktop {
-	background: url('./img/rocket.svg') no-repeat;
+	background: url('./img/rocket.svg') bottom no-repeat;
 	background-size: 39rem 30rem;
-	background-position: bottom;
+	background-color: #FFF;
 }
 
-.mar-top2 {
-	margin-top: 5.5%;
-}
-
-.mar-top3 {
-	margin-top: 8.5%;
+.m-top2 {
+	margin-top: 0.93rem;
 }
 
 .mar-top4 {
-	margin-top: 1.6%;
+	margin-top: 2%;
 }
 
-.mar-top5 {
-	margin-top: 10.3%;
+.mainside-block {
+	margin-top: 5rem;
+	padding: 2.8vh;
+}
+
+.fontS8 {
+	font-size: 0.75rem;
 }
 
 .white_butn {
@@ -283,16 +289,16 @@ button:focus {
 		background-size: 25rem 21rem;
 	}
 
-	.mar-top4 {
-		margin-top: 2.4%;
-	}
-
 	.white_butn {
 		margin-top: 1.2%;
 	}
 
 	.addBtn {
 		margin: 0 10px 0 40px;
+	}
+
+	.block-title {
+		font-size: 1.6rem;
 	}
 
 }
@@ -309,6 +315,10 @@ button:focus {
 		display: none;
 	}
 
+	.block-title {
+		font-size: 1.6rem;
+	}
+
 }
 
 @media screen and (min-width: 576px) and (max-width: 667px) {
@@ -321,6 +331,10 @@ button:focus {
 		background-size: 26rem 23rem;
 	}
 
+	.block-title {
+		font-size: 1.6rem;
+	}
+
 }
 
 @media screen and (min-width: 667px) and (max-width: 768px) {
@@ -331,33 +345,41 @@ button:focus {
 
 }
 
-@media screen and (min-width: 767px) and (max-width: 1023px) {
+@media screen and (min-width: 767px) {
 
 	/*.desktop {*/
 		/*background-size: 28rem 25rem;*/
 		/*background-position: center;*/
 	/*}*/
 
-	.mar-top5 {
-		margin-top: 14%;
+	.mainside-block {
+		margin-top: 5.65rem;
 	}
 
 	.addBtn {
 		margin: 0 8px;
 	}
 
+	.fontS8 {
+		font-size: 0.9rem;
+	}
+
 }
 
-@media screen and (min-width: 1024px) and (max-width: 1279px) {
+/*@media screen and (min-width: 1024px) and (max-width: 1279px) {*/
 
 	/*.desktop {*/
 		/*background-size: 68% 58%;*/
 		/*background-position: center;*/
 	/*}*/
+	/**/
+	/*.mainside-block {*/
+	/*margin-top: 6rem;*/
+	/*}*/
 
-	.addBtn {
-		margin: 0 8px;
-	}
+	/*.addBtn {*/
+		/*margin: 0 8px;*/
+	/*}*/
 
-}
+/*}*/
 
