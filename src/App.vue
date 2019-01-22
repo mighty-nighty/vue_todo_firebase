@@ -96,6 +96,7 @@ li {
 .icon {
   width: 34px;
 }
+
 .logo-text {
   font-family: 'Lobster', cursive;
   font-style: normal;

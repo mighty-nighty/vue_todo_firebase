@@ -1,12 +1,12 @@
 <template>
 	<transition name="fade2" appear>
-		<div id="left_side" class="col-12 col-sm-5 col-md-4 col-lg-3 overflow m_height">
+		<div id="left-side" class="col-12 col-sm-5 col-md-4 col-lg-3 overflow full-height">
 			<div class="container">
 				<transition name="fade2" appear>
 					<div class="row m-top2 m-bottom2">
 						<div class="col-5 col-offset-1 col-sm-6"><h3><b>Группы</b></h3></div>
 						<div class="col-5 col-offset-1 col-sm-6">
-							<button class="btn btn-success addBtn" @click="showAddGroup">Добавить</button>
+							<button class="btn btn-success add-btn" @click="showAddGroup">Добавить</button>
 						</div>
 					</div>
 				</transition>
@@ -47,8 +47,8 @@
 							:id="'con' + i"
 							tabindex="1"
 							>
-								<div class="row pad">
-									<a class="col-11 area t-overflow d-flex justify-content-start fontS2"
+								<div class="row left-pad">
+									<a class="col-11 area t-overflow d-flex justify-content-start font-s2"
 									data-toggle="collapse" :href="'#' + i" role="button" aria-expanded="false" :aria-controls="i"
 									@focus="setFocus(i)"
 									@blur="removeFocus(i)"
@@ -71,7 +71,7 @@
 										</div>
 										<div class="col-12"><hr></div>
 										<div class="container">
-										<div class="row height2 m-bottom b-project project-wrapper"
+										<div class="row custom-height2 m-bottom b-project project-wrapper"
 											v-for="(project, index) in group.projects" :index="index"
 										>
 											<div class="col-11 d-flex justify-content-start vert-pad3"
@@ -219,13 +219,17 @@
 	border-radius: 0;
 }
 
+.left-pad {
+	padding-left: 2.5px;
+}
+
 .def-shadow {
 	box-shadow: 0 10px 24px rgba(0,0,0,0.25), 0 8px 12px rgba(0,0,0,0.22);
 }
 
 .bt-color {
-    transition: background-color 0.4s ease;
-    display: block;
+	transition: background-color 0.4s ease;
+	display: block;
 }
 
 .bt-color:hover {
@@ -236,7 +240,7 @@
 	background-color: #90EE90;
 }
 
-.height2 {
+.custom-height2 {
 	height: 35px;
 }
 
@@ -289,7 +293,7 @@
 	margin-bottom: 0.93rem;
 }
 
-.fontS2 {
+.font-s2 {
 	font-size: 1.05rem;
 }
 

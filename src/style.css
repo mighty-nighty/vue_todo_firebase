@@ -60,10 +60,6 @@ button:focus {
 	-moz-overflow: auto;
 }
 
-.pad {
-	padding-left: 2.5px;
-}
-
 .area {
 	height: 2rem;
 }
@@ -88,27 +84,27 @@ button:focus {
 	box-shadow: 0 10px 24px rgba(0,0,0,0.25), 0 8px 12px rgba(0,0,0,0.22);
 }
 
-.alice {
-	background-color: #F0F8FF;
-}
+/*.alice-color {*/
+	/*background-color: #F0F8FF;*/
+/*}*/
 
 .block-title {
 	font-size: 1.75rem;
 	line-height: 2.36rem;
 }
 
-.m_height {
+.full-height {
   height: 100%;
 }
 
-.addBtn {
+.add-btn {
 	height: 38px;
 	margin: 0 10px;
 	background-color: #90EE90;
 	color: #1E90FF;
 }
 
-.addBtn:hover {
+.add-btn:hover {
 	transition: background-color color .4s ease;
 	background-color: #3CB371;
 	color: #FFF;
@@ -134,8 +130,8 @@ button:focus {
 	margin-top: 0.93rem;
 }
 
-.mar-top4 {
-	margin-top: 2%;
+.m-top3 {
+	margin-top: 14.5rem;
 }
 
 .mainside-block {
@@ -143,11 +139,11 @@ button:focus {
 	padding: 2.8vh;
 }
 
-.fontS8 {
+.font-s8 {
 	font-size: 0.75rem;
 }
 
-.white_butn {
+.white-btn {
   background-color: #FFFFFF;
   box-shadow: 0 6px 20px rgba(0,0,0,0.25), 0 3px 12px rgba(0,0,0,0.25);
 }
@@ -270,12 +266,16 @@ button:focus {
 		height: 2.8rem;
 	}
 
-	#left_side {
+	#left-side {
 		height: 24.6rem;
 	}
 
 	#user-email {
 		display: none;
+	}
+
+	.m-top3 {
+		margin-top: 11.5rem;
 	}
 
 	.login {
@@ -289,11 +289,11 @@ button:focus {
 		background-size: 25rem 21rem;
 	}
 
-	.white_butn {
+	.white-btn {
 		margin-top: 1.2%;
 	}
 
-	.addBtn {
+	.add-btn {
 		margin: 0 10px 0 40px;
 	}
 
@@ -307,12 +307,16 @@ button:focus {
 
 	body {overflow: scroll;}
 
-	#left_side {
+	#left-side {
 		height: 30rem;
 	}
 
 	#user-email {
 		display: none;
+	}
+
+	.m-top3 {
+		margin-top: 11.5rem;
 	}
 
 	.block-title {
@@ -335,32 +339,35 @@ button:focus {
 		font-size: 1.6rem;
 	}
 
+	.m-top3 {
+		margin-top: 14%;
+	}
+
 }
 
-@media screen and (min-width: 667px) and (max-width: 768px) {
+@media screen and (min-width: 668px) and (max-width: 768px) {
 
 	#user-email {
 		display: none;
+	}
+
+	.m-top3 {
+		margin-top: 14%;
 	}
 
 }
 
 @media screen and (min-width: 767px) {
 
-	/*.desktop {*/
-		/*background-size: 28rem 25rem;*/
-		/*background-position: center;*/
-	/*}*/
-
 	.mainside-block {
 		margin-top: 5.65rem;
 	}
 
-	.addBtn {
+	.add-btn {
 		margin: 0 8px;
 	}
 
-	.fontS8 {
+	.font-s8 {
 		font-size: 0.9rem;
 	}
 
@@ -377,7 +384,7 @@ button:focus {
 	/*margin-top: 6rem;*/
 	/*}*/
 
-	/*.addBtn {*/
+	/*.add-btn {*/
 		/*margin: 0 8px;*/
 	/*}*/
 

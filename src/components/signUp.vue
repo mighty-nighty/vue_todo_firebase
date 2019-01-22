@@ -1,18 +1,18 @@
 <template>
   <transition name="fade" mode="out-in">
-    <div class="container mar-top">
+    <div class="container m-top3">
       <form action="">
         <div class="row justify-content-center">
           <input type="text" class="col-9 col-md-6" placeholder="E-mail" v-model="email">
         </div>
-        <div class="row justify-content-center marg-top">
+        <div class="row justify-content-center m-top">
           <input type="password" class="col-9 col-md-6" placeholder="Пароль" v-model="password">
         </div>
-        <div class="row justify-content-center m-top3">
+        <div class="row justify-content-center m-top2">
           <button type="submit" class="btn btn-primary col-6 col-md-3" @click.prevent="registerUser">Зарегистрировать</button>
         </div>
       </form>
-      <div class="row justify-content-center marg-top">
+      <div class="row justify-content-center m-top">
         <button class="btn btn-primary col-6 col-md-3" @click="showOff">Отмена</button>
       </div>
     </div>
@@ -68,16 +68,12 @@
 
 <style scoped>
 
-  .m-top3 {
-    margin-top: 4.8%;
-  }
-
-  .marg-top {
+  .m-top {
     margin-top: 1.6%;
   }
 
-  .mar-top {
-    margin-top: 14%;
+  .m-top2 {
+    margin-top: 4.8%;
   }
 
 </style>
