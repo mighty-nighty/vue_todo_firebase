@@ -105,10 +105,10 @@
 
     data() {
       return {
+        selectedGroup: {},
         changeGroupScreen: false,
         showNewGroup: false,
         groupName: '',
-        index: '',
       }
     },
 
@@ -124,13 +124,6 @@
 //          this.groups.push(data);
 //        })
 //      })
-//    },
-
-//    watch: {
-//      projectChanged: changedProject => {
-//        this.selectedGroup.projects.push(changedProject);
-//        firestore.collection('groups').doc(this.selectedGroup.id).set(this.selectedGroup, {merge: true});
-//      },
 //    },
 
     methods: {
@@ -153,6 +146,7 @@
           this.selectedGroup.name = this.groupName;
           this.groupName = '';
           this.cancelAddGroup();
+//          console.log('selected', this.selectedGroup);
           this.$emit('changeGroupName', this.selectedGroup);
         }
       },
@@ -162,7 +156,7 @@
       },
 
       projectDelete(index, group) {
-        this.$emit('deleteProject', index, group)//
+        this.$emit('deleteProject', index, group)
       },
 
       showProjectEditor(group, project, index) {
@@ -192,8 +186,7 @@
       },
 
       newProjectAdd(group) {
-        this.selectedGroup = group;
-        this.$emit('newProjectScreenOpen', this.selectedGroup);
+        this.$emit('newProjectScreenOpen', group);
       }
 
     }

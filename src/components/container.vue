@@ -97,8 +97,7 @@
         })
       },
 
-      showNewProject(newproject) {
-        this.projectInfo = newproject;
+      showNewProject() {
         this.projectInfo.selected = true;
       },
 
@@ -110,7 +109,9 @@
       },
 
       addNewProject(newProject) {
+        this.projectInfo = newProject;
         this.selectedGroup.projects.push(newProject);
+        this.selectedProjectIndex = this.selectedGroup.projects.length - 1;
         firestore.collection('groups').doc(this.selectedGroup.id).set(this.selectedGroup, {merge: true});
       },
 

@@ -252,7 +252,7 @@ export default {
 				newProject.done = false;
 				newProject.selected = false;
 				this.$emit('addNewProject', newProject);
-				this.$emit('projectShow', newProject);
+				this.$emit('projectShow');
 				this.projectName = '';
 				this.projectDescrip = '';
 				this.state = 'C';

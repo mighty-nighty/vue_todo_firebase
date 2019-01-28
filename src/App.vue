@@ -37,11 +37,6 @@
 
     data() {
       return {
-//        newProjectState: false,
-//        projectData: {selected: false},
-//        showHeader: false,
-//        makeProject: {},
-//        changedProject: {}
         isLoggedIn: false,
         userEmail: ''
       }
