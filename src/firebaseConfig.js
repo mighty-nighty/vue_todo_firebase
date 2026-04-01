@@ -1,9 +1,10 @@
+// Fill config with your firebase api key and  other data to run app with firebase features.
 const fireConfig = {
   apiKey: "",
-  authDomain: "vue-test-todo-base.firebaseapp.com",
-  databaseURL: "https://vue-test-todo-base.firebaseio.com",
-  projectId: "vue-test-todo-base",
-  storageBucket: "vue-test-todo-base.appspot.com",
+  authDomain: "",
+  databaseURL: "",
+  projectId: "",
+  storageBucket: "",
   messagingSenderId: ""
 };
 
